@@ -1,13 +1,21 @@
-import { Stack } from "@mui/material"
+import { Box, Stack } from "@mui/material"
 import { Link } from "react-router-dom"
 import { RoutePath } from "../../lib/common-lib"
 
 const Header = () => {
     return (
-      <Stack direction='row' spacing={1}>
-        <Link to={`${RoutePath.ORDERS}`}>{'orders'}</Link>
-        <Link to={`${RoutePath.PRODUCTS}`}>{'products'}</Link>
-      </Stack>
+      <Box
+        sx={{
+          bgcolor: '#6835D1',
+          padding: 2
+        }}
+      >
+        <Stack direction='row' spacing={1}>
+          <img src="https://foxentry.com/assets/img/logo-foxentry.svg" alt="foxentryLogo"/>
+          <Link to={`${RoutePath.PRODUCTS}`}>{'Products'}</Link>
+          <Link to={`${RoutePath.ORDERS}`}>{'Orders'}</Link>
+        </Stack>
+      </Box>
     )
   }
   

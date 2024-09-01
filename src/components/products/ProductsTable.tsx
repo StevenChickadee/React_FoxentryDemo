@@ -3,7 +3,7 @@ import { deleteSingleProduct, loadProducts } from "../../lib/products-lib"
 import { QueryKey, RoutePath } from "../../lib/common-lib"
 import { DataGrid, GridColDef, GridEventListener, GridRenderCellParams, GridRowParams } from "@mui/x-data-grid"
 import { Product, ProductItems, ProductParams } from "../../lib/products-types"
-import { IconButton, Stack, TextField, Typography } from "@mui/material"
+import { Button, IconButton, Stack, TextField, Typography } from "@mui/material"
 import { Add, Delete, Edit } from "@mui/icons-material"
 import { AxiosError } from "axios"
 import { useCallback, useState } from "react"
@@ -52,7 +52,11 @@ const ProductsTable = () => {
       headerName: '',
       flex: 1,
       renderCell: ({ row }: GridRenderCellParams) => 
-        <Stack direction={'row'} spacing={1}>
+        <Stack 
+          direction={'row'} 
+          justifyContent={'flex-end'}
+          spacing={1}
+        >
           <IconButton
             onClick={() => deleteProduct.mutate(row.id)}
           >
@@ -86,7 +90,10 @@ const ProductsTable = () => {
         direction={'column'}
         spacing={1}
       >
-        <Typography>
+        <Typography 
+          variant={'h6'}
+          color={'primary'}
+        >
           {'ProductsTable'}
         </Typography>
         <Stack 
@@ -100,13 +107,15 @@ const ProductsTable = () => {
             value={params.search ?? ''}
             onChange={handleSearchChange} //TODO debounce
           />
-          <IconButton
+          <Button
+            variant={'contained'}
+            startIcon={<Add />}
             onClick={() => {
               setIsProductDialogOpen(true)
             }}
           >
-            <Add />
-          </IconButton>
+            {'NEW PRODUCT'}
+          </Button>
         </Stack>
         <DataGrid
           rows={products ?? [] as Product[]}

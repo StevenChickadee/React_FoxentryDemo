@@ -64,7 +64,9 @@ const ProductDialog = ({handleProductDialogClose, productId} : ProductDialogProp
           handleProductDialogClose()
         })}
       >
-        <DialogTitle></DialogTitle>
+        <DialogTitle>
+          {'New product'}
+        </DialogTitle>
         <DialogContent>
         {isLoading ?
           <CircularProgress/>

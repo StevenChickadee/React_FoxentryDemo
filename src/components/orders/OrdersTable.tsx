@@ -3,7 +3,7 @@ import { loadOrders } from "../../lib/orders-lib"
 import { QueryKey, RoutePath } from "../../lib/common-lib"
 import { DataGrid, GridColDef, GridEventListener, GridRenderCellParams, GridRowParams } from "@mui/x-data-grid"
 import { Order, OrderItems, OrderParams } from "../../lib/orders-types"
-import { IconButton, Stack, TextField, Typography } from "@mui/material"
+import { Button, IconButton, Stack, TextField, Typography } from "@mui/material"
 import { Add, Delete, Edit } from "@mui/icons-material"
 import { AxiosError } from "axios"
 import { useCallback, useState } from "react"
@@ -64,7 +64,10 @@ const OrdersTable = () => {
         direction={'column'}
         spacing={1}
       >
-        <Typography>
+        <Typography 
+          variant={'h6'}
+          color={'primary'}
+        >
           {'OrdersTable'}
         </Typography>
         <Stack 
@@ -78,14 +81,16 @@ const OrdersTable = () => {
             value={params.search ?? ''}
             onChange={handleSearchChange} //TODO debounce
           />
-            <IconButton
-              onClick={() => {
-                setIsOrderDialogOpen(true)
-              }}
-            >
-              <Add />
-            </IconButton>
-          </Stack>
+          <Button
+            variant={'contained'}
+            startIcon={<Add />}
+            onClick={() => {
+              setIsOrderDialogOpen(true)
+            }}
+          >
+            {'NEW ORDER'}
+          </Button>
+        </Stack>
         <DataGrid
           rows={orders ?? [] as Order[]}
           columns={columns}

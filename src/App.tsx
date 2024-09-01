@@ -8,6 +8,18 @@ import Header from "./components/common/Header"
 import { RoutePath } from "./lib/common-lib"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { enqueueSnackbar, SnackbarProvider } from "notistack"
+import { Box, Container, createTheme, ThemeProvider } from "@mui/material"
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#E74600',
+    },
+    secondary: {
+      main: '#6835D1',
+    },
+  },
+});
 
 const queryClient = new QueryClient({
   defaultOptions: { 
@@ -16,14 +28,12 @@ const queryClient = new QueryClient({
   },
   queryCache: new QueryCache({
     onError: (error) => {
-      console.log(`Something went wrong: ${error.message}`)
-      enqueueSnackbar(`Something went wrong: ${error.message}`) //TODO fix scope
+      enqueueSnackbar(`Something went wrong: ${error.message}`)
     }
   }),
   mutationCache: new MutationCache({
     onError: (error) => {
-      console.log(`Something went wrong: ${error.message}`)
-      enqueueSnackbar(`Something went wrong: ${error.message}`) //TODO fix scope
+      enqueueSnackbar(`Something went wrong: ${error.message}`)
     }
   })
 })
@@ -32,14 +42,23 @@ const App = () => {
   return (
     <SnackbarProvider>
       <QueryClientProvider client={queryClient}>
-        <Header/>
-        <Routes>
-          <Route path={'/'} element={<Home />} />
-          <Route path={`${RoutePath.PRODUCTS}`} element={<ProductsPage />} />
-          <Route path={`${RoutePath.ORDERS}`} element={<OrdersPage />} />
-          <Route path={'*'} element={<PageNotFound />} />
-        </Routes>
-        <ReactQueryDevtools initialIsOpen={false} />
+        <ThemeProvider theme={theme}>
+          <Box 
+            sx={{
+              height: '100vh',
+              width: '100%',
+              bgcolor: "#FFFFFF"
+            }}
+          >
+            <Header/>
+            <Routes>
+              <Route path={'/'} element={<Home />} />
+              <Route path={`${RoutePath.PRODUCTS}`} element={<ProductsPage />} />
+              <Route path={`${RoutePath.ORDERS}`} element={<OrdersPage />} />
+              <Route path={'*'} element={<PageNotFound />} />
+            </Routes>
+          </Box>
+        </ThemeProvider>
       </QueryClientProvider>
     </SnackbarProvider>
   )

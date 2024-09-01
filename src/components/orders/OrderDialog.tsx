@@ -50,7 +50,9 @@ const OrderDialog = ({handleOrderDialogClose} : OrderDialogProps) => {
           handleOrderDialogClose()
         })}
       >
-        <DialogTitle></DialogTitle>
+        <DialogTitle>
+          {'New order'}
+        </DialogTitle>
         <DialogContent>
         {isLoading ?
           <CircularProgress/>

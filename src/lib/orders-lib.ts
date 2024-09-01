@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { Product } from './products-types';
 
 export const loadOrders = async (params?: OrderParams): Promise<Order[]> => {
-    const response = await axios.get<Order[]>(`${backend.LOCALHOST}/orers`, { params });
+    const response = await axios.get<Order[]>(`${backend.LOCALHOST}/orders`, { params });
     return response.data; 
 };
 
