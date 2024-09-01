@@ -1,0 +1,37 @@
+services:
+  cors:
+    build: .
+    container_name: cors
+    ports:
+      - "80:80"
+    depends_on: 
+      - exampleshop
+
+  exampleshop:
+    image: sajdlavantro/exampleshop:latest
+    container_name: 'exampleshop'
+    restart: unless-stopped
+    environment:  
+      - APP_NAME=exampleshop
+    expose:
+      - "80"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+
+  elasticsearch:
+    image: elasticsearch:8.12.2
+    container_name: 'exampleshop-elasticsearch'
+    restart: unless-stopped
+    environment:
+      - discovery.type=single-node
+      - cluster.name=docker-cluster
+      - node.name=cluster1-node1
+      - xpack.license.self_generated.type=basic
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    healthcheck:
+      test: curl -s http://elasticsearch:9200 >/dev/null || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 50
